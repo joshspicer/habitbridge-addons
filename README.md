@@ -1,3 +1,5 @@
+> **Warning:** This addon is a work in progress and subject to significant changes! I don't suggest adopting it in Home Assistant (Yet!).  Keep an eye this repo and the associated [the blog post](https://joshspicer.com/habitbridge) for updates!
+
 # HabitBridge Add-on Repository
 
 ## Add-ons
@@ -5,13 +7,6 @@
 This repository contains the following add-ons:
 
 ### HabitBridge
-
-![Latest Version][habitbridge-version-shield]
-![Supports armhf Architecture][habitbridge-armhf-shield]
-![Supports armv7 Architecture][habitbridge-armv7-shield]
-![Supports aarch64 Architecture][habitbridge-aarch64-shield]
-![Supports amd64 Architecture][habitbridge-amd64-shield]
-![Supports i386 Architecture][habitbridge-i386-shield]
 
 Process webhooks from HabitBridge habit tracking app
 
@@ -33,13 +28,6 @@ Process webhooks from HabitBridge habit tracking app
 
 2. Find and install the "HabitBridge" addon from the add-on store
 3. Start the addon
-
-[habitbridge-version-shield]: https://img.shields.io/badge/version-v1.0.0-blue.svg
-[habitbridge-armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[habitbridge-armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[habitbridge-aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
-[habitbridge-amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[habitbridge-i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 
 ## Sensors Created
 
@@ -98,14 +86,6 @@ automation:
           message: "Don't forget to complete your habits for today!"
 ```
 
-## Troubleshooting
-
-- **Not receiving webhook data?** Make sure:
-  - The addon is running
-  - Your Home Assistant instance is accessible from your phone
-  - The webhook URL is correct in the HabitBridge app
-  - Check the addon logs for more information
-
 ### Testing the Webhook
 
 You can use the included test script to send sample data to your webhook without needing the HabitBridge app:
@@ -117,7 +97,3 @@ python3 test_webhook.py http://localhost:8000/webhook
 ```
 
 This will send sample habit data to your webhook endpoint and show the response, which is useful for verifying that the addon is working correctly.
-
-## Support
-
-For issues or feature requests, please file an issue on the [GitHub repository](https://github.com/joshspicer/HabitBridge/issues).
