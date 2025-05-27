@@ -1,0 +1,56 @@
+# Example automation for controlling individual LEDs on an addressable LED strip
+# This assumes you're using ESPHome or similar for your LED control
+
+# First, define the LED strip in configuration.yaml or through the UI
+light:
+  - platform: mqtt
+    name: "LED Strip"
+    command_topic: "home/ledstrip/set"
+    rgb: true
+    qos: 0
+    optimistic: false
+    retain: true
+
+# Automation to update the "current day" LED based on habit completion
+automation:
+  - alias: "HabitBridge - Update Today's LED"
+    description: "Changes the current day's LED color based on habit completion"
+    trigger:
+      - platform: state
+        entity_id: sensor.habitbridge_all_completed
+    action:
+      - service: esphome.led_strip_set_pixel
+        data:
+          id: led_strip
+          num: >
+            {% set day_of_month = now().day %}
+            {{ day_of_month - 1 }}  # Convert to 0-based index
+          red: >
+            {% if trigger.to_state.state == "on" %}0{% else %}255{% endif %}
+          green: >
+            {% if trigger.to_state.state == "on" %}255{% else %}0{% endif %}
+          blue: 0
+      - service: esphome.led_strip_show
+        data:
+          id: led_strip
+
+# Alternative approach using addressable LED entities directly
+automation:
+  - alias: "HabitBridge - Update Today's LED (Alternative)"
+    description: "Changes the current day's LED color based on habit completion"
+    trigger:
+      - platform: state
+        entity_id: sensor.habitbridge_all_completed
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: >
+            {% set day_of_month = now().day %}
+            light.led_strip_{{ day_of_month }}
+        data:
+          rgb_color: >
+            {% if trigger.to_state.state == "on" %}
+            [0, 255, 0]  # Green for completed
+            {% else %}
+            [255, 0, 0]  # Red for incomplete
+            {% endif %}
