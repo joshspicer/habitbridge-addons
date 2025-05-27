@@ -31,25 +31,37 @@ Process webhooks from HabitBridge habit tracking app
 
 ## Sensors Created
 
+
 The addon creates the following entities in Home Assistant:
 
-- `sensor.habitbridge_[habit_name]` - For each habit, shows "completed" or "not_completed"
-- `sensor.habitbridge_completion_rate` - Percentage of habits completed today
-- `sensor.habitbridge_all_completed` - "on" when all habits are completed, "off" otherwise
+- `sensor.habitbridge` – **Summary sensor** with overall stats:
+  - `state`: "on" if all habits are completed, "off" otherwise
+  - Attributes:
+    - `habits_count`: Number of habits
+    - `completed_count`: Number of completed habits
+    - `completion_rate`: Percentage of habits completed today
+    - `all_habits_complete`: Boolean, true if all habits are complete
+    - `user`: User name
+    - `last_updated`: Last update timestamp
+    - `app_version`: App version
+- `sensor.habitbridge_[habit_name]` – For each habit, shows "completed" or "not_completed"
+- `sensor.habitbridge_completion_rate` – Percentage of habits completed today
+- `sensor.habitbridge_all_completed` – "on" when all habits are completed, "off" otherwise
 
 ## Example Automations
 
-### LED Strip Example
 
-This example turns an LED strip green when all habits are completed for the day, and red otherwise.
+### LED Strip Example (using summary sensor)
+
+This example turns an LED strip green when all habits are completed for the day, and red otherwise, using the new summary sensor:
 
 ```yaml
 # Example automation for RGB LED strip
 automation:
-  - alias: "HabitBridge - Update LED Based on Habit Completion"
+  - alias: "HabitBridge - Update LED Based on Habit Completion (Summary)"
     trigger:
       - platform: state
-        entity_id: sensor.habitbridge_all_completed
+        entity_id: sensor.habitbridge
     action:
       - service: >
           {% if trigger.to_state.state == "on" %}
@@ -67,18 +79,19 @@ automation:
           {% endif %}
 ```
 
-### Daily Habit Reminder
+
+### Daily Habit Reminder (using summary sensor)
 
 ```yaml
 # Reminder if habits not completed by evening
 automation:
-  - alias: "HabitBridge - Evening Reminder"
+  - alias: "HabitBridge - Evening Reminder (Summary)"
     trigger:
       - platform: time
         at: "20:00:00"
     condition:
       - condition: state
-        entity_id: sensor.habitbridge_all_completed
+        entity_id: sensor.habitbridge
         state: "off"
     action:
       - service: notify.mobile_app

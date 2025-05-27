@@ -64,9 +64,22 @@ def update_ha_state(entity_id, state, attributes=None):
 
 def is_habit_completed_today(habit):
     """Check if a habit is completed today."""
-    today = datetime.now().date().isoformat()
+    today = datetime.now().date()
     for completion_date in habit.get('completions', []):
-        if isinstance(completion_date, str) and completion_date.startswith(today):
+        # Accept both float (timestamp) and string (ISO date)
+        dt = None
+        if isinstance(completion_date, (int, float)):
+            try:
+                dt = datetime.fromtimestamp(completion_date)
+            except Exception:
+                continue
+        elif isinstance(completion_date, str):
+            try:
+                # Try parsing as ISO string
+                dt = datetime.fromisoformat(completion_date)
+            except Exception:
+                continue
+        if dt and dt.date() == today:
             return True
     return False
 
@@ -146,6 +159,23 @@ def process_habits_data(data):
             'last_updated': datetime.now().isoformat()
         }
     )
+
+    # Update a single summary entity for HabitBridge
+    update_ha_state(
+        "sensor.habitbridge",
+        "on" if all_habits_complete else "off",
+        {
+            'friendly_name': "HabitBridge Summary",
+            'icon': "mdi:bridge-variant",
+            'user': user_name,
+            'habits_count': len(habits),
+            'completed_count': completed_count,
+            'completion_rate': round(completion_rate, 1),
+            'all_habits_complete': all_habits_complete,
+            'last_updated': datetime.now().isoformat(),
+            'app_version': app_version
+        }
+    )
     
     _LOGGER.info(f"Processed habits data: {len(habits)} habits, {completed_count} completed")
     return all_habits_complete, completion_rate
@@ -221,7 +251,7 @@ if __name__ == "__main__":
                     <p>In the HabitBridge app, set your webhook URL to:</p>
                     <pre>http://[your-home-assistant-ip]:{WEBHOOK_PORT}/webhook</pre>
                     
-                    <p>For more information, see the <a href="https://github.com/joshspicer/HabitBridge/blob/main/homeassistant/README.md">README</a></p>
+                    <p>For more information, see the <a href="https://github.com/joshspicer/HabitBridge-addons">README</a></p>
                 </div>
             </body>
         </html>
