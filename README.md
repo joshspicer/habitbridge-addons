@@ -1,6 +1,19 @@
-# HabitBridge Home Assistant Addon
+# HabitBridge Add-on Repository
 
-This addon allows Home Assistant to receive webhook data from the HabitBridge habit tracking app, making it possible to create automations based on your habit completion status.
+## Add-ons
+
+This repository contains the following add-ons:
+
+### HabitBridge
+
+![Latest Version][habitbridge-version-shield]
+![Supports armhf Architecture][habitbridge-armhf-shield]
+![Supports armv7 Architecture][habitbridge-armv7-shield]
+![Supports aarch64 Architecture][habitbridge-aarch64-shield]
+![Supports amd64 Architecture][habitbridge-amd64-shield]
+![Supports i386 Architecture][habitbridge-i386-shield]
+
+Process webhooks from HabitBridge habit tracking app
 
 ## Features
 
@@ -15,39 +28,18 @@ This addon allows Home Assistant to receive webhook data from the HabitBridge ha
 1. Add the repository to your Home Assistant addon store:
    - In Home Assistant, go to Settings -> Add-ons -> Add-on Store
    - Click the menu (⋮) in the top right corner and select "Repositories"
-   - Add the URL: `https://github.com/joshspicer/HabitBridge`
+   - Add the URL: `https://github.com/yourusername/habit-bridge`
    - Click "Add"
 
 2. Find and install the "HabitBridge" addon from the add-on store
 3. Start the addon
 
-## Setup
-
-### In Home Assistant
-
-1. Start the addon and make note of your Home Assistant URL
-2. The webhook endpoint will be available at:
-   ```
-   http://your-home-assistant:8000/webhook
-   ```
-
-### In the HabitBridge App
-
-1. Open the HabitBridge app
-2. Go to Settings
-3. Enable Webhooks
-4. Enter your Home Assistant webhook URL:
-   ```
-   http://your-home-assistant:8000/webhook
-   ```
-
-> **Note:** Make sure your phone can reach your Home Assistant instance on port 8000. If accessing Home Assistant over the internet, you may need to set up port forwarding or use a service like Nabu Casa for secure remote access.
->
-> For local network access, you might need to use your Home Assistant's actual IP address:
-> ```
-> http://192.168.1.xxx:8000/webhook
-> ```
-> Where `192.168.1.xxx` is your Home Assistant's local IP address.
+[habitbridge-version-shield]: https://img.shields.io/badge/version-v1.0.0-blue.svg
+[habitbridge-armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
+[habitbridge-armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[habitbridge-aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[habitbridge-amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[habitbridge-i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 
 ## Sensors Created
 
