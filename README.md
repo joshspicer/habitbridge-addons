@@ -15,7 +15,7 @@ This addon allows Home Assistant to receive webhook data from the HabitBridge ha
 1. Add the repository to your Home Assistant addon store:
    - In Home Assistant, go to Settings -> Add-ons -> Add-on Store
    - Click the menu (⋮) in the top right corner and select "Repositories"
-   - Add the URL: `https://github.com/joshspicer/HabitBridge`
+   - Add the URL: `https://github.com/joshspicer/habitbridge-addons`
    - Click "Add"
 
 2. Find and install the "HabitBridge" addon from the add-on store
