@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/with-contenv bashio
 
 CONFIG_PATH=/data/options.json
 LOG_LEVEL=$(bashio::config 'log_level')
