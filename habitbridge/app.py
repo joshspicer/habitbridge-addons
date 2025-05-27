@@ -17,11 +17,24 @@ logging.basicConfig(
 )
 _LOGGER = logging.getLogger(__name__)
 
+# Log the first 3 characters of the supervisor token for debugging
+if SUPERVISOR_TOKEN:
+    _LOGGER.info(f"SUPERVISOR_TOKEN starts with: {SUPERVISOR_TOKEN[:3]}")
+else:
+    _LOGGER.warning("SUPERVISOR_TOKEN is not set or empty!")
+
 # Constants
+
 SUPERVISOR_TOKEN = os.environ.get('SUPERVISOR_TOKEN')
 HA_API_URL = 'http://supervisor/core/api'
 WEBHOOK_PORT = 8000
 ENTITY_PREFIX = 'sensor.habitbridge_'
+
+# Log the first 3 characters of the supervisor token for debugging
+if SUPERVISOR_TOKEN:
+    _LOGGER.info(f"SUPERVISOR_TOKEN starts with: {SUPERVISOR_TOKEN[:3]}")
+else:
+    _LOGGER.warning("SUPERVISOR_TOKEN is not set or empty!")
 
 app = Flask(__name__)
 

@@ -2,6 +2,7 @@ name: "HabitBridge"
 description: "Process webhooks from HabitBridge habit tracking app"
 version: "0.0.1-alpha03"
 slug: "habitbridge"
+homeassistant_api: true
 init: false
 arch:
   - armhf
