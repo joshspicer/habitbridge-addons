@@ -40,7 +40,7 @@ def update_ha_state(entity_id, state, attributes=None):
         attributes = {}
     
     headers = {
-        'Authorization': f'******',
+        'Authorization': f'Bearer {SUPERVISOR_TOKEN}',
         'Content-Type': 'application/json',
     }
     
