@@ -6,7 +6,7 @@ Receives webhooks from HabitBridge app and makes data available to Home Assistan
 import json
 import logging
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, request, jsonify
 import requests
 
@@ -65,12 +65,13 @@ def update_ha_state(entity_id, state, attributes=None):
 def is_habit_completed_today(habit):
     """Check if a habit is completed today."""
     today = datetime.now().date()
+    IOS_EPOCH = datetime(2001, 1, 1)
     for completion_date in habit.get('completions', []):
-        # Accept both float (timestamp) and string (ISO date)
         dt = None
         if isinstance(completion_date, (int, float)):
             try:
-                dt = datetime.fromtimestamp(completion_date)
+                # Interpret as iOS timestamp (seconds since 2001-01-01)
+                dt = IOS_EPOCH + timedelta(seconds=completion_date)
             except Exception:
                 continue
         elif isinstance(completion_date, str):

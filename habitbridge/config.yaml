@@ -1,6 +1,6 @@
 name: "HabitBridge"
 description: "Process webhooks from HabitBridge habit tracking app"
-version: "0.0.1-alpha01"
+version: "0.0.1-alpha02"
 slug: "habitbridge"
 init: false
 arch:
