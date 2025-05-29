@@ -1,4 +1,4 @@
-> **Warning:** This addon is a work in progress and subject to significant changes! I don't suggest adopting it in Home Assistant (Yet!).  Keep an eye this repo and the associated [the blog post](https://joshspicer.com/habitbridge) for updates!
+> **Warning:** This addon is a work in progress and subject to significant changes!  Keep an eye this repo and the associated [the blog post](https://joshspicer.com/habitbridge) for updates!
 
 # HabitBridge Add-on Repository
 
